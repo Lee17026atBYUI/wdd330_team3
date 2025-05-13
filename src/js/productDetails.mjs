@@ -16,6 +16,19 @@ function addToCart() {
   async function addToCartHandler(e) {
     const product = await findProductById(e.target.dataset.id);
     addProductToCart(product);
+
+    // Add animation to cart icon
+    const cartIcon = document.querySelector(".cart");
+    cartIcon.classList.add("animate");
+
+    // Remove animation class after animation ends
+    cartIcon.addEventListener("animationend", () => {
+      cartIcon.classList.remove("animate");
+    }, { once: true });
+
+    const items = JSON.parse(localStorage.getItem("so-cart")) || [];
+    const counterEl = document.getElementById("cartCounter");
+    counterEl.textContent = items.length > 0 ? items.length : "";
   }
 
   // add listener to Add to Cart button
