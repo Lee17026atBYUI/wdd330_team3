@@ -4,7 +4,6 @@ import productDetails from "./productDetails.mjs";
 // get product id using getParam
 const productId = getParam("product");
 productDetails(productId);
-console.log(productId);
 
 // Update cart counter on page load
 const items = JSON.parse(localStorage.getItem("so-cart")) || [];
