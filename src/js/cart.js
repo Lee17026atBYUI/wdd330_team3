@@ -3,6 +3,11 @@ import { getLocalStorage } from "./utils.mjs";
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
 
+  const emptyCartHtml = `<h3>Empty Cart. It is so sad and lonely here. Please buy a tent to make it warm and cozy.</h3>`;
+  // use optional chaining to check if this bad boy is empty
+  const htmlItems = cartItems?.map((item) => cartItemTemplate(item));
+  document.querySelector(".product-list").innerHTML = htmlItems ? htmlItems.join("") : emptyCartHtml;
+
   // Will hide the total if cart is empty
   if (!cartItems || cartItems.length === 0) {
     document.querySelector(".cart-total").style.display = "none";
@@ -18,6 +23,7 @@ function renderCartContents() {
 
   const totalPrice = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
   cartTotal.innerText = `Total: $${totalPrice.toFixed(2)}`;
+
 }
 
 function cartItemTemplate(item) {
