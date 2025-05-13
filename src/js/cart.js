@@ -14,9 +14,6 @@ function renderCartContents() {
     return;
   }
 
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
-
   // Will display cart total if there is at least one item in cart
   const cartTotal = document.querySelector(".cart-total");
   cartTotal.style.display = "block";
