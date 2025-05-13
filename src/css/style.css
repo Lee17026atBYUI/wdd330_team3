@@ -202,6 +202,15 @@ button {
   grid-column: 3;
 }
 
+/* Cart total styles */
+.cart-footer {
+  padding: 0.5em;
+}
+.cart-total {
+  display: none;
+  font-weight: bold;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -220,3 +229,37 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+/* Cart animation */
+@keyframes cartShake {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(-5deg); }
+  50% { transform: scale(1.15) rotate(5deg); }
+  75% { transform: scale(1.1) rotate(-5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.cart.animate {
+  animation: cartShake 0.5s ease;
+}
+/* Cart animation */
+
+/* Cart Counter */
+.cart-counter {
+  position: absolute;
+  top: 30px;
+  right: -7px;
+  transform: translate(50%, -50%);
+  background-color: red;
+  color: white;
+  font-size: 0.6em;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 1em;
+  min-height: 1em;
+}
+/* Cart Counter */

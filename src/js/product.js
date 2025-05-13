@@ -5,3 +5,10 @@ import productDetails from "./productDetails.mjs";
 const productId = getParam("product");
 productDetails(productId);
 console.log(productId);
+
+// Update cart counter on page load
+const items = JSON.parse(localStorage.getItem("so-cart")) || [];
+const counterEl = document.getElementById("cartCounter");
+if (counterEl) {
+  counterEl.textContent = items.length > 0 ? items.length : "";
+}
