@@ -38,6 +38,16 @@ function addToCart() {
 }
 
 function renderProductDetails(productData) {
+	if (productData === undefined) {
+		document.getElementsByClassName("product-detail")[0].style.display = "none";
+
+		const h1 = document.createElement("h1");
+		const node = document.createTextNode("Product Not Currently Available");
+		h1.appendChild(node);
+		document.getElementsByTagName("main")[0].appendChild(h1);
+		return;
+	}
+
   // get elements from HTML
   const productName = document.getElementById("productName");
   const productNameWithoutBrand = document.getElementById(
