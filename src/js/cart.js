@@ -22,6 +22,16 @@ function renderCartContents() {
 
   const totalPrice = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
   cartTotal.innerText = `Total: $${totalPrice.toFixed(2)}`;
+
+  // Attach delete button listeners AFTER rendering
+  document.querySelectorAll(".delete-btn").forEach((button, index) => {
+    button.addEventListener("click", () => {
+      // Remove the item at this index
+      const updatedCart = cartItems.filter((_, i) => i !== index);
+      localStorage.setItem("so-cart", JSON.stringify(updatedCart));
+      renderCartContents(); // re-render the updated cart
+    });
+  });
 }
 
 function cartItemTemplate(item) {
@@ -38,8 +48,8 @@ function cartItemTemplate(item) {
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
   <p class="cart-card__quantity">qty: 1</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
+  <button class="delete-btn" aria-label="Remove item">&times;</button>
 </li>`;
-
   return newItem;
 }
 
