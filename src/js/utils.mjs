@@ -40,3 +40,40 @@ export function getParam(param) {
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
+
+export async function renderWithTemplate(
+  templateFn,
+  parentElement,
+  data,
+  position = "afterbegin",
+  clear = true,
+  callback
+) {
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  if (callback) {
+	callback(data);
+  }
+  const htmlString = await templateFn();
+  parentElement.insertAdjacentHTML(position, htmlString);
+}
+
+export function loadTemplate(path) {
+	return async function () {
+		const res = await fetch(path);
+		if (res.ok) {
+			const html = await res.text();
+			return html;
+		}
+	};
+}
+
+export function loadHeaderFooter() {
+	const headerTemplateFn = loadTemplate("/partials/header.html");
+	const footerTemplateFn = loadTemplate("/partials/footer.html");
+	const header = document.querySelector("#main-header");
+	const footer = document.querySelector("#main-footer");
+	renderWithTemplate(headerTemplateFn, header);
+	renderWithTemplate(footerTemplateFn, footer);
+}

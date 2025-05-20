@@ -1,5 +1,6 @@
 import { getParam } from "./utils.mjs";
 import productDetails from "./productDetails.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
 
 // get product id using getParam
 const productId = getParam("product");
@@ -11,3 +12,5 @@ const counterEl = document.getElementById("cartCounter");
 if (counterEl) {
   counterEl.textContent = items.length > 0 ? items.length : "";
 }
+
+loadHeaderFooter();
