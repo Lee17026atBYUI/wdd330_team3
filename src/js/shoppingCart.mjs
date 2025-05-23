@@ -5,10 +5,16 @@ export function renderCartContents() {
 
   const emptyCartHtml = `<h3>Empty Cart. It is so sad and lonely here. Please buy a tent to make it warm and cozy.</h3>`;
   // use optional chaining to check if this bad boy is empty
-  const htmlItems = cartItems?.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems
-    ? htmlItems.join("")
-    : emptyCartHtml;
+  if (cartItems != null && cartItems?.length <= 0) {
+    // items were deleted from cart
+    document.querySelector(".product-list").innerHTML = emptyCartHtml;
+  } else {
+  	// we either have a cart of items or we don't even have the cart in local storage
+    const htmlItems = cartItems?.map((item) => cartItemTemplate(item));
+    document.querySelector(".product-list").innerHTML = htmlItems
+      ? htmlItems.join("")
+      : emptyCartHtml;
+  }
 
   // Will hide the total if cart is empty
   if (!cartItems || cartItems.length === 0) {
