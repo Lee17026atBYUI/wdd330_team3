@@ -66,8 +66,19 @@ function renderProductDetails(productData) {
   productNameWithoutBrand.textContent = productData.NameWithoutBrand;
   productImage.src = productData.Image;
   productImage.alt = "Image of " + productData.Name;
-  productFinalPrice.textContent = productData.FinalPrice;
+  productFinalPrice.innerHTML = getDiscountPriceHtml(productData.SuggestedRetailPrice, productData.FinalPrice);
   productColorName.textContent = productData.Colors[0].ColorName;
   productDescriptionHtmlSimple.innerHTML = productData.DescriptionHtmlSimple;
   cartBtn.setAttribute("data-id", productData.Id);
+}
+
+function getDiscountPriceHtml(originalPrice, discountPrice) {
+  const discountPercent = Math.round((1 - discountPrice / originalPrice) * 100);
+
+  let html = "";
+  html += `<span class="original-price">$${originalPrice}</span>`;
+  html += ' $' + discountPrice;
+  html += ` <span class="discount-badge">${discountPercent}% OFF</span>`;
+
+  return html;
 }
