@@ -80,6 +80,15 @@ header {
 .highlight {
   color: var(--tertiary-color);
 }
+.main-page-categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.main-page-categories li {
+  list-style: none;
+  max-width: 100px;
+  text-align: center;
+}
 
 button {
   padding: 0.5em 2em;

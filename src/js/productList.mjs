@@ -16,15 +16,22 @@ export async function productList(category, htmlElement){
 
 function productCardTemplate(product){
     return `<li class="product-card">
-            <a href="product_pages/index.html?product=${product.Id}">
+            <a href="../product_pages/index.html?product=${product.Id}">
               <img
-                src="${product.Image}"
+                src="${product.Images.PrimaryMedium}"
                 alt="Image of ${product.Name}"
               />
               <h3 class="card__brand">${product.Brand.Name}</h3>
               <h2 class="card__name">${product.NameWithoutBrand}</h2>
               <p class="product-card__price">${product.FinalPrice}</p></a>
             </li>`;
+}
+
+export function renderPageForCategory(category) {
+  const h2_title = document.getElementById("product_title");
+  const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
+  h2_title.textContent = `Top Products: ${capitalizedCategory}`;
+  document.title = `Sleep Outside | Top Products: ${capitalizedCategory}`;
 }
 
 // Optional function: renderList - move adding to the document to its own funciton
