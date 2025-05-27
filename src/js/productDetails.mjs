@@ -64,7 +64,7 @@ function renderProductDetails(productData) {
   // get product information
   productName.textContent = productData.Brand.Name;
   productNameWithoutBrand.textContent = productData.NameWithoutBrand;
-  productImage.src = productData.Image;
+  productImage.src = productData.Images.PrimaryLarge;
   productImage.alt = "Image of " + productData.Name;
   productFinalPrice.innerHTML = getDiscountPriceHtml(productData.SuggestedRetailPrice, productData.FinalPrice);
   productColorName.textContent = productData.Colors[0].ColorName;
