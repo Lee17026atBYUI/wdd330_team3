@@ -163,6 +163,12 @@ button {
 .card__name {
   font-size: 1em;
 }
+
+#product_sort {
+  float: right;
+  margin: 1rem 0.5rem;
+}
+
 /* End product list card */
 
 .product-detail {
