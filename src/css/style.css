@@ -83,6 +83,7 @@ header {
 .main-page-categories {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  padding-left: 0;
 }
 .main-page-categories li {
   list-style: none;
@@ -148,7 +149,7 @@ button {
   margin: 0.25em;
   padding: 0.5em;
   border: 1px solid var(--light-grey);
-  max-width: 250px;
+  max-width: 150px;
 }
 .product-card h2,
 .product-card h3,
@@ -257,6 +258,12 @@ button {
   .cart-card {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
+  }
+  .product-card {
+    max-width: 250px;
+  }
+  .main-page-categories {
+    padding-left: 40px;
   }
 }
 
