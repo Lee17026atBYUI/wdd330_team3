@@ -8,7 +8,9 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <script src="../js/checkout.js" type="module"></script>
   </head>
 
   <body class="checkout">
@@ -19,7 +21,7 @@
       <section class="products">
         <h2>Review & Place your Order</h2>
       </section>
-      <form action="" class="checkoutForm">
+      <form action="submit" class="checkoutForm">
         <fieldset>
           <legend>Shipping</legend>
           <label for="fname">First Name</label><br>
@@ -38,7 +40,7 @@
           <input type="text" name="state"><br>
 
           <label for="zip">Zip Code</label><br>
-          <input type="text" name="zip"><br>
+          <input type="text" name="zip" id="zip"><br>
         </fieldset>
         <fieldset>
           <legend>Card Name</legend>
@@ -54,17 +56,17 @@
         <fieldset>
           <legend>Order Summary</legend>
 
-          <label for="subtotal" id="items">Item Subtotal</label>
-          <input type="text" name="subtotal" readonly>
+          <label for="subtotal" id="items">Item Subtotal</label><br>
+          <input type="text" name="subtotal" readonly><br>
 
-          <label for="shipping">Shipping Estimate</label>
-          <input type="text" name="shipping" readonly>
+          <label for="shipping">Shipping Estimate</label><br>
+          <input type="text" name="shipping" readonly><br>
 
-          <label for="tax">Tax</label>
-          <input type="text" name="tax" readonly>
+          <label for="tax">Tax</label><br>
+          <input type="text" name="tax" readonly><br>
 
-          <label for="orderTotal">Order Total</label>
-          <input type="text" name="orderTotal" readonly>
+          <label for="orderTotal">Order Total</label><br>
+          <input type="text" name="orderTotal" readonly><br>
         </fieldset>
         <button type="submit">Checkout</button>
       </form>

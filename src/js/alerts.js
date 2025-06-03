@@ -1,8 +1,8 @@
-import { getData } from "./productData.mjs";
+import { getProductsByCategory } from "./externalServices.mjs";
 
 async function createAlert() {
   const category = "alerts";
-  const alertData = await getData(category);
+  const alertData = await getProductsByCategory(category);
 
   if (alertData) {
     const pageBody = document.querySelector("main");

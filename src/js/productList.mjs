@@ -1,8 +1,8 @@
-import { getData } from "./productData.mjs";
+import { getProductsByCategory } from "./externalServices.mjs";
 import {getParam} from "./utils.mjs";
 
 export async function productList(category, htmlElement){
-  const product = await getData(category);
+  const product = await getProductsByCategory(category);
   product.forEach(data => {
     const template = productCardTemplate(data);
     const element = document.querySelector(htmlElement);
@@ -42,7 +42,7 @@ export function setUpSort() {
 async function sortProducts(order) {
   // start by getting the data
   const category = getParam("category");
-  let product = await getData(category);
+  let product = await getProductsByCategory(category);
 
   // sort options match with values in product_list/index.html #product_sort
   switch (order) {
