@@ -9,8 +9,19 @@ export function renderCartContents() {
     // items were deleted from cart
     document.querySelector(".product-list").innerHTML = emptyCartHtml;
   } else {
+    //uses a map to aggrgate the duplicate values in the local storage
+    const itemMap = {};
+    cartItems?.forEach(item => {
+      // Sets the key equal to the Id
+      const key = item.Id;
+      if (!itemMap[key]) {
+        itemMap[key] = { item, quantity: 1 };
+      } else {
+        itemMap[key].quantity += 1;
+      }
+    });
   	// we either have a cart of items or we don't even have the cart in local storage
-    const htmlItems = cartItems?.map((item) => cartItemTemplate(item));
+    const htmlItems = Object.values(itemMap).map(({ item, quantity }) => cartItemTemplate(item, quantity));
     document.querySelector(".product-list").innerHTML = htmlItems
       ? htmlItems.join("")
       : emptyCartHtml;
@@ -40,7 +51,7 @@ export function renderCartContents() {
   });
 }
 
-export function cartItemTemplate(item) {
+export function cartItemTemplate(item, quantity) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
@@ -52,7 +63,7 @@ export function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <p class="cart-card__quantity">qty: ${quantity}</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <button class="delete-btn" aria-label="Remove item">&times;</button>
 </li>`;
