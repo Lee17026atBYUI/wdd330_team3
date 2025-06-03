@@ -9,8 +9,10 @@ export function renderCartContents() {
     // items were deleted from cart
     document.querySelector(".product-list").innerHTML = emptyCartHtml;
   } else {
+    //uses a map to aggrgate the duplicate values in the local storage
     const itemMap = {};
     cartItems?.forEach(item => {
+      // Sets the key equal to the Id
       const key = item.Id;
       if (!itemMap[key]) {
         itemMap[key] = { item, quantity: 1 };
