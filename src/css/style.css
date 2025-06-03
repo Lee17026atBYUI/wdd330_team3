@@ -321,3 +321,34 @@ footer {
   min-height: 1em;
 }
 /* Cart Counter */
+
+
+/*Checkout Form Styling*/
+
+.checkout fieldset{
+  max-width: 200px;
+  padding: 25px 50px;
+  margin-bottom: 15px;
+}
+
+.checkout input{
+  width: fit-content;
+  font-size: 25px;
+  height: 44px;
+  margin-bottom: 20px;
+}
+
+.checkout label{
+  float: left;
+  font-size: 20px;
+}
+
+.checkoutForm{
+  margin: 0 auto;
+  text-align: center;
+  max-width: fit-content;
+}
+
+.checkout button{
+  margin: 10px auto;
+}
