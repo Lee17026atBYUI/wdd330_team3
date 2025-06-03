@@ -11,13 +11,63 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body>
+  <body class="checkout">
     <header class="divider" id="main-header"></header>
 
     <main class="divider">
+      
       <section class="products">
         <h2>Review & Place your Order</h2>
       </section>
+      <form action="" class="checkoutForm">
+        <fieldset>
+          <legend>Shipping</legend>
+          <label for="fname">First Name</label><br>
+          <input type="text" name="fname"><br>
+
+          <label for="lname">Last Name</label><br>
+          <input type="text" name="lname"><br>
+
+          <label for="street"> Street</label><br>
+          <input type="text" name="street"><br>
+
+          <label for="city">City</label><br>
+          <input type="text" name="city"><br>
+
+          <label for="state">State</label><br>
+          <input type="text" name="state"><br>
+
+          <label for="zip">Zip Code</label><br>
+          <input type="text" name="zip"><br>
+        </fieldset>
+        <fieldset>
+          <legend>Card Name</legend>
+          <label for="cardNumber">Card Number</label><br>
+          <input type="text" name="cardNumber"><br>
+
+          <label for="experation">Expiration Date</label><br>
+          <input type="text" name="expiration"><br>
+
+          <label for="code">Security Code</label><br>
+          <input type="text" name="code"><br>
+        </fieldset>
+        <fieldset>
+          <legend>Order Summary</legend>
+
+          <label for="subtotal" id="items">Item Subtotal</label>
+          <input type="text" name="subtotal" readonly>
+
+          <label for="shipping">Shipping Estimate</label>
+          <input type="text" name="shipping" readonly>
+
+          <label for="tax">Tax</label>
+          <input type="text" name="tax" readonly>
+
+          <label for="orderTotal">Order Total</label>
+          <input type="text" name="orderTotal" readonly>
+        </fieldset>
+        <button type="submit">Checkout</button>
+      </form>
     </main>
 
     <footer id="main-footer"></footer>
