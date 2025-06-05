@@ -45,8 +45,9 @@ const checkoutProcess = {
     const json = formDataToJSON(form);
     // build the data object from the calculated fields, the items in the cart, and the information entered into the form
     const finalItems = packageItems(this.list)
+    const orderDate = new Date().toJSON();
     const finalObj = {
-        orderDate: new Date(),
+        orderDate: orderDate,
         fname: json.fname,
         lname: json.lname,
         street: json.street,
@@ -80,16 +81,19 @@ function packageItems(items) {
         }
     });
     // convert the list of products from localStorage to the simpler form required for the checkout process. Array.map would be perfect for this.
-    items.map(item => {
+    let packagedItems = items.map(item => {
         const itemId = item.Id
         const obj = {
             "id": item.Id,
             "name": item.Name,
-            "price": item.Price,
+            "price": item.FinalPrice,
             "quantity": itemMap[itemId].quantity,
         }
         return obj
     });
+    // for items w/ quantity > 1, we will have that many copies in the array
+    // who knows if that's okay
+    return packagedItems;
 }
 
 function formDataToJSON(formElement) {
