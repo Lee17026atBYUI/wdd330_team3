@@ -352,3 +352,45 @@ footer {
 .checkout button{
   margin: 10px auto;
 }
+
+/* newsletter */
+.newsletter-section {
+  background-color: #a17045;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 7px 7px 4px #4a3421;
+  text-align: center;
+  letter-spacing: 0.03rem;
+}
+.newsletter-ad {
+  padding: 2rem 5rem;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+  padding-bottom: 0;
+}
+.newsletter-email {
+  width: 300px;
+  height: 35px;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+}
+.newsletter-subscribe {
+  display: block;
+  width: 300px;
+  height: 40px;
+  margin: 8px auto;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  background-color: #4a3421;
+  border-radius: 3px;
+}
+.newsletter-subscribe:hover {
+  background-color: #e8b180;
+  color: #303030;
+  cursor: pointer;
+}
+.newsletter-legal {
+  font-size: 0.7rem;
+  padding-bottom: 1.4rem;
+  color: #e6c5a2;
+}
