@@ -122,6 +122,31 @@ button {
 
 /* End cart icon styles */
 
+/* search */
+.header-search-div {
+  padding-top: 0.7rem;
+  position: absolute;
+  right: 4rem;
+}
+.header-search-input {
+  height: 1.7rem;
+  width: 4rem;
+  transition: width 900ms ease;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid var(--primary-color);
+  border-radius: 3px;
+}
+.header-search-input:focus {
+  width: 8rem;
+}
+.header-search-icon {
+  display: inline;
+  cursor: pointer;
+  font-size: 1.6rem;
+}
+/* end search */
+
 .mission {
   padding: 0 0.5em;
   /* margin: 0.5em 0; */
@@ -322,33 +347,32 @@ footer {
 }
 /* Cart Counter */
 
-
 /*Checkout Form Styling*/
 
-.checkout fieldset{
+.checkout fieldset {
   max-width: 200px;
   padding: 25px 50px;
   margin-bottom: 15px;
 }
 
-.checkout input{
+.checkout input {
   width: fit-content;
   font-size: 25px;
   height: 44px;
   margin-bottom: 20px;
 }
 
-.checkout label{
+.checkout label {
   float: left;
   font-size: 20px;
 }
 
-.checkoutForm{
+.checkoutForm {
   margin: 0 auto;
   text-align: center;
   max-width: fit-content;
 }
 
-.checkout button{
+.checkout button {
   margin: 10px auto;
 }
