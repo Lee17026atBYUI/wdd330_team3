@@ -3,11 +3,15 @@ import {getParam} from "./utils.mjs";
 
 export async function productList(category, htmlElement){
   const product = await getProductsByCategory(category);
-  product.forEach(data => {
+  renderProductList(product, htmlElement);
+}
+
+function renderProductList(products, htmlElement) {
+  products.forEach((data) => {
     const template = productCardTemplate(data);
     const element = document.querySelector(htmlElement);
     const li = document.createElement("li");
-    li.innerHTML = template
+    li.innerHTML = template;
     element.append(li);
   });
 }
@@ -25,11 +29,11 @@ function productCardTemplate(product){
             </li>`;
 }
 
-export function renderPageForCategory(category) {
+export function renderPageForCategory(category, text) {
   const h2_title = document.getElementById("product_title");
   const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
-  h2_title.textContent = `Top Products: ${capitalizedCategory}`;
-  document.title = `Sleep Outside | Top Products: ${capitalizedCategory}`;
+  h2_title.textContent = `${text} ${capitalizedCategory}`;
+  document.title = `Sleep Outside | ${text} ${capitalizedCategory}`;
 }
 
 export function setUpSort() {
@@ -42,7 +46,13 @@ export function setUpSort() {
 async function sortProducts(order) {
   // start by getting the data
   const category = getParam("category");
-  let product = await getProductsByCategory(category);
+  const search = getParam("search");
+  let product = [];
+  if (category) {
+    product = await getProductsByCategory(category);
+  } else if (search) {
+    product = await searchAllProducts(search);
+  }
 
   // sort options match with values in product_list/index.html #product_sort
   switch (order) {
@@ -67,12 +77,29 @@ async function sortProducts(order) {
   element.innerHTML = "";
 
   // rebuild the display
-  product.forEach(data => {
-    const template = productCardTemplate(data);
-    const li = document.createElement("li");
-    li.innerHTML = template
-    element.append(li);
-  });
+  renderProductList(product, ".product-list");
+}
+
+export async function searchProductList(search, htmlElement) {
+  const foundProducts = await searchAllProducts(search);
+  renderProductList(foundProducts, htmlElement);
+}
+
+async function searchAllProducts(search) {
+  const allCategories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
+  let foundProducts = [];
+  for await (const category of allCategories) {
+    // get all products for this category
+    const products = await getProductsByCategory(category);
+    products.forEach((product) => {
+      // only keep the products that match the search term
+      // for now it's just in the name (with brand)
+      if (product.Name.toLowerCase().includes(search.toLowerCase())) {
+        foundProducts.push(product);
+      }
+    });
+  }
+  return foundProducts;
 }
 
 // Optional function: renderList - move adding to the document to its own funciton

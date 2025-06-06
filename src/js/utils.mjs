@@ -52,11 +52,12 @@ export async function renderWithTemplate(
   if (clear) {
     parentElement.innerHTML = "";
   }
+  const htmlString = await templateFn();
+  parentElement.insertAdjacentHTML(position, htmlString);
+
   if (callback) {
 	callback(data);
   }
-  const htmlString = await templateFn();
-  parentElement.insertAdjacentHTML(position, htmlString);
 }
 
 export function loadTemplate(path) {
@@ -74,6 +75,15 @@ export function loadHeaderFooter() {
 	const footerTemplateFn = loadTemplate("/partials/footer.html");
 	const header = document.querySelector("#main-header");
 	const footer = document.querySelector("#main-footer");
-	renderWithTemplate(headerTemplateFn, header);
+	renderWithTemplate(headerTemplateFn, header, null, 'afterbegin', true, loadSearch);
 	renderWithTemplate(footerTemplateFn, footer);
+}
+
+function loadSearch() {
+	document.getElementById("header-search-icon").addEventListener("click", search);
+}
+
+async function search() {
+	const search = document.getElementById("header-search-input").value;
+	window.location = `/product_list/index.html?search=${search}`;
 }
