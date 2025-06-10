@@ -419,3 +419,22 @@ footer {
   padding-bottom: 1.4rem;
   color: #e6c5a2;
 }
+
+/* Alert Styles */
+.alert {
+  display: flex;
+  background-color: var(--primary-color);
+  outline: 2px solid darkorange;
+  margin: 15px 15px 0 15px;
+  padding: 0 15px;
+}
+.space {
+  flex-grow: 1;
+}
+.alert-btn {
+  width: 35px;
+  padding: 0;
+  margin-left: auto;
+  background-color: var(--primary-color);
+  color: var(--dark-grey);
+}

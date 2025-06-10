@@ -1,4 +1,4 @@
-import { setLocalStorage } from "./utils.mjs";
+import { setLocalStorage, alertMessage } from "./utils.mjs";
 import { findProductById } from "./externalServices.mjs";
 
 export default async function productDetails(productId) {
@@ -24,7 +24,9 @@ function addToCart() {
 
     const items = JSON.parse(localStorage.getItem("so-cart")) || [];
     const counterEl = document.getElementById("cartCounter");
-    counterEl.textContent = items.length > 0 ? items.length : "";
+    // counterEl.textContent = items.length > 0 ? items.length : "";
+    const productMessage = product.NameWithoutBrand + ' was added to the cart.'
+    alertMessage(productMessage);
   }
 
   document
