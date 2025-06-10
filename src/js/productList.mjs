@@ -95,7 +95,7 @@ export function attachQuickViewListeners() {
         <div class="modal-info">
           <h3 id="modal-brand"></h3>
           <h2 id="modal-name"></h2>
-          <p id="modal-price"></p>
+          <p id="modal-price">$</p>
           <p><strong>Color:</strong> <span id="modal-color"></span></p>
           <div id="modal-description"></div>
         </div>
@@ -106,7 +106,11 @@ export function attachQuickViewListeners() {
   document.body.appendChild(modal);
 
   modal.querySelector('#quickViewCloseBtn').addEventListener('click', closeQuickView);
-
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeQuickView();
+    }
+  });
   document.querySelectorAll('.quick-view-btn').forEach(button => {
     button.addEventListener('click', async (e) => {
       const id = button.dataset.id;
@@ -125,6 +129,7 @@ async function openQuickView(productId) {
   document.getElementById('modal-name').textContent = product.NameWithoutBrand;
   document.getElementById('modal-color').textContent = product.Colors[0].ColorName;
   document.getElementById('modal-description').innerHTML = product.DescriptionHtmlSimple;
+  document.getElementById('modal-price').textContent = `$${product.FinalPrice}`
   
   document.getElementById('quickViewModal').classList.remove('hidden');
 }
