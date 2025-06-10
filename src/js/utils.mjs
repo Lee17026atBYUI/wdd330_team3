@@ -87,3 +87,25 @@ async function search() {
 	const search = document.getElementById("header-search-input").value;
 	window.location = `/product_list/index.html?search=${search}`;
 }
+
+export function alertMessage(message, scroll=true) {
+	const alertMessageHTML = document.createElement('div');
+	alertMessageHTML.classList.add('alert');
+
+	alertMessageHTML.innerHTML = `
+		<p>${message}</p>
+		<div class="space"></div>
+		<button class="alert-btn">X</button>
+	`
+
+	alertMessageHTML.addEventListener('click', function(e) {
+		if (e.target.classList.contains('alert-btn')) {
+			main.removeChild(this);
+		}
+	})
+	const main = document.querySelector('main');
+	main.prepend(alertMessageHTML);
+	
+	if(scroll)
+		window.scrollTo(0,0);
+}

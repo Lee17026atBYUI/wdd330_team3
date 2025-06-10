@@ -14,3 +14,4 @@ if (counterEl) {
 }
 
 loadHeaderFooter();
+
