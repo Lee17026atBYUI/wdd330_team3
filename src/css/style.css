@@ -125,8 +125,7 @@ button {
 /* search */
 .header-search-div {
   padding-top: 0.7rem;
-  position: absolute;
-  right: 4rem;
+  padding-right: 1.4rem;
 }
 .header-search-input {
   height: 1.7rem;
