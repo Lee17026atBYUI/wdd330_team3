@@ -37,7 +37,7 @@ function addToCart() {
     .addEventListener("click", addToCartHandler);
 }
 
-function renderProductDetails(productData) {
+export function renderProductDetails(productData) {
 	if (productData === undefined) {
 		document.getElementsByClassName("product-detail")[0].style.display = "none";
 
