@@ -437,3 +437,15 @@ footer {
   background-color: var(--primary-color);
   color: var(--dark-grey);
 }
+
+/* account */
+.account-icon {
+  font-size: 1.6rem;
+}
+#signupForm > button {
+  margin: 1rem 0 1rem 0;
+  transition: background-color 300ms;
+}
+#signupForm > button:hover {
+  background-color: var(--dark-grey);
+}
