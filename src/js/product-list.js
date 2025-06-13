@@ -14,8 +14,6 @@ if (category) {
   renderPageForCategory(category, "Top Products: ");
 } else if (search) {
   searchProductList(search, ".product-list");
-  // renderPageForCategory(`Containing: ${search}`);
-
   renderPageForCategory(search, "All Products Containing: ");
 }
 setUpSort();
