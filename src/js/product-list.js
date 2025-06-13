@@ -4,18 +4,18 @@ import {
   setUpSort,
   searchProductList,
 } from "./productList.mjs";
-import { loadHeaderFooter, getParam } from "./utils.mjs";
+import { loadHeaderFooter, getParam, renderBreadcrumbs } from "./utils.mjs";
 
 loadHeaderFooter();
 const category = getParam("category");
 const search = getParam("search");
+renderBreadcrumbs(category, search);
 if (category) {
   productList(category, ".product-list");
   renderPageForCategory(category, "Top Products: ");
 } else if (search) {
   searchProductList(search, ".product-list");
-  // renderPageForCategory(`Containing: ${search}`);
-
-  renderPageForCategory(search, "All Products Containing: ");
+  const title = document.getElementById("product_title");
+  title.textContent = `Search Results for "${search}"`;
 }
 setUpSort();
