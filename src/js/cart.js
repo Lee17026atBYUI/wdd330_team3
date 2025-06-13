@@ -1,5 +1,6 @@
 import { renderCartContents } from "./shoppingCart.mjs";
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, renderBreadcrumbs } from "./utils.mjs";
 
-renderCartContents();
 loadHeaderFooter();
+renderBreadcrumbs("cart");
+renderCartContents();

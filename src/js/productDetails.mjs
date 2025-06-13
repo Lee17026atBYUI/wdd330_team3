@@ -5,6 +5,7 @@ export default async function productDetails(productId) {
   addToCart();
   const productData = await findProductById(productId);
   renderProductDetails(productData);
+  return productData;
 }
 
 function addToCart() {

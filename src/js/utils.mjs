@@ -109,3 +109,33 @@ export function alertMessage(message, scroll=true) {
 	if(scroll)
 		window.scrollTo(0,0);
 }
+
+export function renderBreadcrumbs(category, search, productName, showCart = false) {
+  const container = document.getElementById("breadcrumbs");
+  if (!container) return;
+
+  const crumbs = [`<a href="/index.html">Home</a>`];
+
+  if (category === "cart") {
+      crumbs.push(`<span> › </span><span><a href="/cart/index.html">Cart</a></span>`);
+  } else if (category) {
+    crumbs.push(`<span> › </span><a href="/product_list/index.html?category=${category}">${capitalize(category)}</a>`);
+  } else if (search) {
+    crumbs.push(`<span> › </span><a href="/product_list/index.html?search=${search}">Search: "${search}"</a>`);
+  } 
+
+  if (productName) {
+    crumbs.push(`<span> › </span><span>${productName}</span>`);
+  }
+
+  if (showCart) {
+    crumbs.push(`<span> › </span><a href="/cart/index.html">Cart</a>`);
+  }
+
+  container.innerHTML = crumbs.join("");
+}
+
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
