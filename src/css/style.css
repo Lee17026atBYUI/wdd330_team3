@@ -472,3 +472,16 @@ footer {
 #breadcrumbs a, #breadcrumbs span {
   white-space: nowrap;
 }
+
+/* account */
+.account-icon {
+  font-size: 1.6rem;
+}
+#signupForm > button {
+  margin: 1rem 0 1rem 0;
+  transition: background-color 300ms;
+}
+#signupForm > button:hover {
+  background-color: var(--dark-grey);
+}
+

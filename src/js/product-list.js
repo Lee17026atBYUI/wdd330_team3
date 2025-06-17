@@ -15,7 +15,6 @@ if (category) {
   renderPageForCategory(category, "Top Products: ");
 } else if (search) {
   searchProductList(search, ".product-list");
-  const title = document.getElementById("product_title");
-  title.textContent = `Search Results for "${search}"`;
+  renderPageForCategory(search, "All Products Containing: ");
 }
 setUpSort();
