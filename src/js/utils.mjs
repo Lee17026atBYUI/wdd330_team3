@@ -52,11 +52,12 @@ export async function renderWithTemplate(
   if (clear) {
     parentElement.innerHTML = "";
   }
+  const htmlString = await templateFn();
+  parentElement.insertAdjacentHTML(position, htmlString);
+
   if (callback) {
 	callback(data);
   }
-  const htmlString = await templateFn();
-  parentElement.insertAdjacentHTML(position, htmlString);
 }
 
 export function loadTemplate(path) {
@@ -74,7 +75,7 @@ export function loadHeaderFooter() {
 	const footerTemplateFn = loadTemplate("/partials/footer.html");
 	const header = document.querySelector("#main-header");
 	const footer = document.querySelector("#main-footer");
-	renderWithTemplate(headerTemplateFn, header);
+	renderWithTemplate(headerTemplateFn, header, null, 'afterbegin', true, loadSearch);
 	renderWithTemplate(footerTemplateFn, footer);
 }
 
@@ -109,5 +110,66 @@ export function newUserModal() {
       }
     });
   }
+}
+
+function loadSearch() {
+	document.getElementById("header-search-icon").addEventListener("click", search);
+}
+
+async function search() {
+	const search = document.getElementById("header-search-input").value;
+	window.location = `/product_list/index.html?search=${search}`;
+}
+
+export function alertMessage(message, scroll=true) {
+	const alertMessageHTML = document.createElement('div');
+	alertMessageHTML.classList.add('alert');
+
+	alertMessageHTML.innerHTML = `
+		<p>${message}</p>
+		<div class="space"></div>
+		<button class="alert-btn">X</button>
+	`
+
+	alertMessageHTML.addEventListener('click', function(e) {
+		if (e.target.classList.contains('alert-btn')) {
+			main.removeChild(this);
+		}
+	})
+	const main = document.querySelector('main');
+	main.prepend(alertMessageHTML);
+	
+	if(scroll)
+		window.scrollTo(0,0);
+}
+
+export function renderBreadcrumbs(category, search, productName, showCart = false) {
+  const container = document.getElementById("breadcrumbs");
+  if (!container) return;
+
+  const crumbs = [`<a href="/index.html">Home</a>`];
+
+  if (category === "cart") {
+      crumbs.push(`<span> › </span><span><a href="/cart/index.html">Cart</a></span>`);
+  } else if (category) {
+    crumbs.push(`<span> › </span><a href="/product_list/index.html?category=${category}">${capitalize(category)}</a>`);
+  } else if (search) {
+    crumbs.push(`<span> › </span><a href="/product_list/index.html?search=${search}">Search: "${search}"</a>`);
+  } 
+
+  if (productName) {
+    crumbs.push(`<span> › </span><span>${productName}</span>`);
+  }
+
+  if (showCart) {
+    crumbs.push(`<span> › </span><a href="/cart/index.html">Cart</a>`);
+  }
+
+  container.innerHTML = crumbs.join("");
+}
+
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 

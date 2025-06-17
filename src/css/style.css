@@ -122,6 +122,30 @@ button {
 
 /* End cart icon styles */
 
+/* search */
+.header-search-div {
+  padding-top: 0.7rem;
+  padding-right: 1.4rem;
+}
+.header-search-input {
+  height: 1.7rem;
+  width: 4rem;
+  transition: width 900ms ease;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid var(--primary-color);
+  border-radius: 3px;
+}
+.header-search-input:focus {
+  width: 8rem;
+}
+.header-search-icon {
+  display: inline;
+  cursor: pointer;
+  font-size: 1.6rem;
+}
+/* end search */
+
 .mission {
   padding: 0 0.5em;
   /* margin: 0.5em 0; */
@@ -322,36 +346,36 @@ footer {
 }
 /* Cart Counter */
 
-
 /*Checkout Form Styling*/
 
-.checkout fieldset{
+.checkout fieldset {
   max-width: 200px;
   padding: 25px 50px;
   margin-bottom: 15px;
 }
 
-.checkout input{
+.checkout input {
   width: fit-content;
   font-size: 25px;
   height: 44px;
   margin-bottom: 20px;
 }
 
-.checkout label{
+.checkout label {
   float: left;
   font-size: 20px;
 }
 
-.checkoutForm{
+.checkoutForm {
   margin: 0 auto;
   text-align: center;
   max-width: fit-content;
 }
 
-.checkout button{
+.checkout button {
   margin: 10px auto;
 }
+
 
 .modal {
   position: fixed;
@@ -458,3 +482,160 @@ footer {
   font-size: 1.5rem;
   cursor: pointer;
 }
+
+
+/* newsletter */
+.newsletter-section {
+  background-color: #a17045;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 7px 7px 4px #4a3421;
+  text-align: center;
+  letter-spacing: 0.03rem;
+}
+.newsletter-ad {
+  padding: 2rem 5rem;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+  padding-bottom: 0;
+}
+.newsletter-email {
+  width: 300px;
+  height: 35px;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+}
+.newsletter-subscribe {
+  display: block;
+  width: 300px;
+  height: 40px;
+  margin: 8px auto;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  background-color: #4a3421;
+  border-radius: 3px;
+}
+.newsletter-subscribe:hover {
+  background-color: #e8b180;
+  color: #303030;
+  cursor: pointer;
+}
+.newsletter-legal {
+  font-size: 0.7rem;
+  padding-bottom: 1.4rem;
+  color: #e6c5a2;
+}
+
+/* Alert Styles */
+.alert {
+  display: flex;
+  background-color: var(--primary-color);
+  outline: 2px solid darkorange;
+  margin: 15px 15px 0 15px;
+  padding: 0 15px;
+}
+.space {
+  flex-grow: 1;
+}
+.alert-btn {
+  width: 35px;
+  padding: 0;
+  margin-left: auto;
+  background-color: var(--primary-color);
+  color: var(--dark-grey);
+}
+
+/* Image Carousel */
+#carousel-container {
+  position: relative;
+}
+
+.imgSlides {
+  display: none;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 10px;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.next {
+  right: 0;
+}
+
+.prev:hover, .next:hover {
+  background-color: var(--light-grey);
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+  width: 20%;
+}
+
+.img-thumb {
+  opacity: 0.6;
+}
+
+.active, .img-thumb:hover {
+  opacity: 1;
+}
+
+/* Breadcrumbs Styles */
+#breadcrumbs {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #555;
+  padding: 0.5em;
+  user-select: none;
+}
+
+#breadcrumbs a {
+  color: #0077cc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#breadcrumbs a:hover {
+  text-decoration: underline;
+  color: #005fa3;
+}
+
+#breadcrumbs span {
+  margin: 0 5px;
+  color: #888;
+}
+
+#breadcrumbs span:last-child {
+  color: #333;
+  font-weight: bold;
+  cursor: default;
+}
+
+#breadcrumbs a, #breadcrumbs span {
+  white-space: nowrap;
+}
+
+/* account */
+.account-icon {
+  font-size: 1.6rem;
+}
+#signupForm > button {
+  margin: 1rem 0 1rem 0;
+  transition: background-color 300ms;
+}
+#signupForm > button:hover {
+  background-color: var(--dark-grey);
+}
+

@@ -1,5 +1,5 @@
 import { checkout } from "./externalServices.mjs";
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, alertMessage } from "./utils.mjs";
 
 const checkoutProcess = {
     key: "",
@@ -42,31 +42,40 @@ const checkoutProcess = {
     form.orderTotal.value = this.orderTotal
   },
   checkout: async function(form) {
-    const json = formDataToJSON(form);
-    // build the data object from the calculated fields, the items in the cart, and the information entered into the form
-    const finalItems = packageItems(this.list)
-    const orderDate = new Date().toJSON();
-    const finalObj = {
-        orderDate: orderDate,
-        fname: json.fname,
-        lname: json.lname,
-        street: json.street,
-        city: json.city,
-        state: json.state,
-        zip: json.zip,
-        cardNumber: json.cardNumber,
-        expiration: json.expiration,
-        code: json.code,
-        items: finalItems,
-        orderTotal: json.orderTotal,
-        shipping: json.shipping,
-        tax: json.tax
+    try {
+      const json = formDataToJSON(form);
+      // build the data object from the calculated fields, the items in the cart, and the information entered into the form
+      const finalItems = packageItems(this.list)
+      const orderDate = new Date().toJSON();
+      const finalObj = {
+          orderDate: orderDate,
+          fname: json.fname,
+          lname: json.lname,
+          street: json.street,
+          city: json.city,
+          state: json.state,
+          zip: json.zip,
+          cardNumber: json.cardNumber,
+          expiration: json.expiration,
+          code: json.code,
+          items: finalItems,
+          orderTotal: json.orderTotal,
+          shipping: json.shipping,
+          tax: json.tax
+      }
+      // call the checkout method in our externalServices module and send it our data object.
+      const res = await checkout(finalObj)
+      console.log(res)
+      window.location.href = '../checkout/success.html'
+      localStorage.clear();
+    } catch (err) {
+      const error = await err.message;
+      for (let key in error) {
+        alertMessage(error[key]);
+      }
+      console.log(err.message);
     }
-    // call the checkout method in our externalServices module and send it our data object.
-    const res = await checkout(finalObj)
-    console.log(res)
   }
-  
 }
 
 // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.

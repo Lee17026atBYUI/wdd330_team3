@@ -1,10 +1,11 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 function convertToJson(res) {
+  const jsonResponse = res.json();
   if (res.ok) {
-    return res.json();
+    return jsonResponse;
   } else {
-    throw new Error("Bad Response");
+    throw { name: 'serviceError', message: jsonResponse };
   }
 }
 
@@ -30,4 +31,15 @@ export async function checkout(orderObj){
   }
 
   return await fetch(baseURL + "checkout/", options).then(convertToJson)
+}
+
+export async function signup(userObj) {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userObj)
+  };
+  return await fetch(baseURL + "users", options).then(convertToJson);
 }
