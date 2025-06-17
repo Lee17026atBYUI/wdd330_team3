@@ -82,7 +82,7 @@ export function loadHeaderFooter() {
 export function newUserModal() {
   // Only show if user hasn't submitted email before
   if (!getLocalStorage("discountEmail")) {
-    const modal = qs("#discountModal");
+    const modal = document.querySelector("#discountModal");
     if (!modal) return;
 
     // Unhide the modal
@@ -94,17 +94,15 @@ export function newUserModal() {
     });
 
     // Submit logic
-    setClick("#submitDiscount", () => {
-      const email = qs("#userEmail").value;
+    setClick("#submitNewUserDiscount", () => {
+      const email = document.querySelector("#newUserEmail").value;
       const isValid = /^\S+@\S+\.\S+$/.test(email);
-      const message = qs("#discountMessage");
+      const message = document.querySelector("#newUserDiscountMessage");
 
       if (isValid) {
         setLocalStorage("discountEmail", email);
         message.textContent = "Thanks! Discount applied!";
-        setTimeout(() => {
-          modal.style.display = "none";
-        }, 1500);
+        modal.style.display = "none";
       } else {
         message.textContent = "Please enter a valid email.";
       }
