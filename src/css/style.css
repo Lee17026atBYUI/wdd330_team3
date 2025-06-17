@@ -484,3 +484,51 @@ footer {
 .active, .img-thumb:hover {
   opacity: 1;
 }
+
+/* Breadcrumbs Styles */
+#breadcrumbs {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #555;
+  padding: 0.5em;
+  user-select: none;
+}
+
+#breadcrumbs a {
+  color: #0077cc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#breadcrumbs a:hover {
+  text-decoration: underline;
+  color: #005fa3;
+}
+
+#breadcrumbs span {
+  margin: 0 5px;
+  color: #888;
+}
+
+#breadcrumbs span:last-child {
+  color: #333;
+  font-weight: bold;
+  cursor: default;
+}
+
+#breadcrumbs a, #breadcrumbs span {
+  white-space: nowrap;
+}
+
+/* account */
+.account-icon {
+  font-size: 1.6rem;
+}
+#signupForm > button {
+  margin: 1rem 0 1rem 0;
+  transition: background-color 300ms;
+}
+#signupForm > button:hover {
+  background-color: var(--dark-grey);
+}
+
