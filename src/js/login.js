@@ -3,7 +3,7 @@ import { login } from "./auth.mjs";
 
 loadHeaderFooter();
 
-const redirect = getParam("redirect");
+const redirect = getParam("redirect") || "/";
 
 document.getElementById("login").addEventListener("click", async (event) => {
   event.preventDefault();
