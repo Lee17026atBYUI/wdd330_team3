@@ -4,18 +4,16 @@ import {
   setUpSort,
   attachQuickViewListeners,
   searchProductList,
-
 } from "./productList.mjs";
 import { loadHeaderFooter, getParam, renderBreadcrumbs } from "./utils.mjs";
-
 
 loadHeaderFooter();
 const category = getParam("category");
 
-await productList(category, ".product-list");
+productList(category, ".product-list");
 renderPageForCategory(category);
 setUpSort();
-attachQuickViewListeners()
+attachQuickViewListeners();
 
 const search = getParam("search");
 renderBreadcrumbs(category, search);
@@ -27,4 +25,3 @@ if (category) {
   renderPageForCategory(search, "All Products Containing: ");
 }
 setUpSort();
-
