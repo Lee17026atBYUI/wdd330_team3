@@ -6,12 +6,10 @@ import {
 } from "./productList.mjs";
 import { loadHeaderFooter, getParam } from "./utils.mjs";
 
-(async () => {
-  loadHeaderFooter();
-  const category = getParam("category");
-  await productList(category, ".product-list");
-  renderPageForCategory(category);
-  setUpSort();
-  attachQuickViewListeners();
-})();
 
+loadHeaderFooter();
+const category = getParam("category");
+await productList(category, ".product-list");
+renderPageForCategory(category);
+setUpSort();
+attachQuickViewListeners()

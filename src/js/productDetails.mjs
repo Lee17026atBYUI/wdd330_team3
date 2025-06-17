@@ -1,5 +1,6 @@
 import { setLocalStorage } from "./utils.mjs";
 import { findProductById } from "./externalServices.mjs";
+import { attachQuickViewListeners } from "./productList.mjs";
 
 export default async function productDetails(productId) {
   addToCart();

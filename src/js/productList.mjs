@@ -127,7 +127,7 @@ async function openQuickView(productId) {
   document.getElementById('modal-image').alt = `Image of ${product.Name}`;
   document.getElementById('modal-brand').textContent = product.Brand.Name;
   document.getElementById('modal-name').textContent = product.NameWithoutBrand;
-  document.getElementById('modal-color').textContent = product.Colors[0].ColorName;
+  document.getElementById('modal-color').innerHTML = product.Colors[0].ColorName;
   document.getElementById('modal-description').innerHTML = product.DescriptionHtmlSimple;
   document.getElementById('modal-price').textContent = `$${product.FinalPrice}`
   

@@ -77,3 +77,37 @@ export function loadHeaderFooter() {
 	renderWithTemplate(headerTemplateFn, header);
 	renderWithTemplate(footerTemplateFn, footer);
 }
+
+export function newUserModal() {
+  // Only show if user hasn't submitted email before
+  if (!getLocalStorage("discountEmail")) {
+    const modal = qs("#discountModal");
+    if (!modal) return;
+
+    // Unhide the modal
+    modal.style.display = "block";
+
+    // Close button logic
+    setClick("#closeDiscount", () => {
+      modal.style.display = "none";
+    });
+
+    // Submit logic
+    setClick("#submitDiscount", () => {
+      const email = qs("#userEmail").value;
+      const isValid = /^\S+@\S+\.\S+$/.test(email);
+      const message = qs("#discountMessage");
+
+      if (isValid) {
+        setLocalStorage("discountEmail", email);
+        message.textContent = "Thanks! Discount applied!";
+        setTimeout(() => {
+          modal.style.display = "none";
+        }, 1500);
+      } else {
+        message.textContent = "Please enter a valid email.";
+      }
+    });
+  }
+}
+
