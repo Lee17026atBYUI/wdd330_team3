@@ -1,5 +1,6 @@
 import { setLocalStorage, alertMessage } from "./utils.mjs";
 import { findProductById } from "./externalServices.mjs";
+import { attachQuickViewListeners } from "./productList.mjs";
 
 export default async function productDetails(productId) {
   addToCart();
@@ -39,9 +40,10 @@ function addToCart() {
     .addEventListener("click", addToCartHandler);
 }
 
-function renderProductDetails(productData) {
-  if (productData === undefined) {
-    document.getElementsByClassName("product-detail")[0].style.display = "none";
+export function renderProductDetails(productData) {
+	if (productData === undefined) {
+		document.getElementsByClassName("product-detail")[0].style.display = "none";
+
 
     const h1 = document.createElement("h1");
     const node = document.createTextNode("Product Not Currently Available");

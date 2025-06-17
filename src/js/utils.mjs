@@ -79,6 +79,39 @@ export function loadHeaderFooter() {
 	renderWithTemplate(footerTemplateFn, footer);
 }
 
+export function newUserModal() {
+  // Only show if user hasn't submitted email before
+  if (!getLocalStorage("discountEmail")) {
+    const modal = qs("#discountModal");
+    if (!modal) return;
+
+    // Unhide the modal
+    modal.style.display = "block";
+
+    // Close button logic
+    setClick("#closeDiscount", () => {
+      modal.style.display = "none";
+    });
+
+    // Submit logic
+    setClick("#submitDiscount", () => {
+      const email = qs("#userEmail").value;
+      const isValid = /^\S+@\S+\.\S+$/.test(email);
+      const message = qs("#discountMessage");
+
+      if (isValid) {
+        setLocalStorage("discountEmail", email);
+        message.textContent = "Thanks! Discount applied!";
+        setTimeout(() => {
+          modal.style.display = "none";
+        }, 1500);
+      } else {
+        message.textContent = "Please enter a valid email.";
+      }
+    });
+  }
+}
+
 function loadSearch() {
 	document.getElementById("header-search-icon").addEventListener("click", search);
 }
@@ -139,3 +172,4 @@ export function renderBreadcrumbs(category, search, productName, showCart = fals
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+

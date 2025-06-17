@@ -1,4 +1,4 @@
-import { getProductsByCategory } from "./externalServices.mjs";
+import { getProductsByCategory, findProductById} from "./externalServices.mjs";
 import {getParam} from "./utils.mjs";
 
 export async function productList(category, htmlElement){
@@ -26,6 +26,7 @@ function productCardTemplate(product){
               <h3 class="card__brand">${product.Brand.Name}</h3>
               <h2 class="card__name">${product.NameWithoutBrand}</h2>
               <p class="product-card__price">${product.FinalPrice}</p></a>
+              <button class="quick-view-btn" data-id="${product.Id}">Quick View</button>
             </li>`;
 }
 
@@ -77,6 +78,15 @@ async function sortProducts(order) {
   element.innerHTML = "";
 
   // rebuild the display
+
+  product.forEach(data => {
+    const template = productCardTemplate(data);
+    const li = document.createElement("li");
+    li.innerHTML = template
+    element.append(li);
+  });
+  attachQuickViewListeners();
+
   renderProductList(product, ".product-list");
 }
 
@@ -100,6 +110,66 @@ async function searchAllProducts(search) {
     });
   }
   return foundProducts;
+
 }
 
 // Optional function: renderList - move adding to the document to its own funciton
+
+
+// Quick View for each product. This will bring up a modal with the deatils of just one item.
+export function attachQuickViewListeners() {
+  const modal = document.createElement('div');
+  modal.id = 'quickViewModal';
+  modal.classList.add('modal');
+  modal.classList.add('hidden');
+
+  modal.innerHTML = `
+    <div class="modal-content">
+      <span class="close" id="quickViewCloseBtn">&times;</span>
+      <div class="modal-product-details">
+        <img id="modal-image" src="" alt="" />
+        <div class="modal-info">
+          <h3 id="modal-brand"></h3>
+          <h2 id="modal-name"></h2>
+          <p id="modal-price">$</p>
+          <p><strong>Color:</strong> <span id="modal-color"></span></p>
+          <div id="modal-description"></div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  modal.querySelector('#quickViewCloseBtn').addEventListener('click', closeQuickView);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeQuickView();
+    }
+  });
+  document.querySelectorAll('.quick-view-btn').forEach(button => {
+    button.addEventListener('click', async (e) => {
+      const id = button.dataset.id;
+      await openQuickView(id);
+    });
+  });
+}
+
+async function openQuickView(productId) {
+  const product = await findProductById(productId);
+  if (!product) return;
+
+  document.getElementById('modal-image').src = product.Images.PrimaryLarge;
+  document.getElementById('modal-image').alt = `Image of ${product.Name}`;
+  document.getElementById('modal-brand').textContent = product.Brand.Name;
+  document.getElementById('modal-name').textContent = product.NameWithoutBrand;
+  document.getElementById('modal-color').innerHTML = product.Colors[0].ColorName;
+  document.getElementById('modal-description').innerHTML = product.DescriptionHtmlSimple;
+  document.getElementById('modal-price').textContent = `$${product.FinalPrice}`
+  
+  document.getElementById('quickViewModal').classList.remove('hidden');
+}
+
+function closeQuickView() {
+  document.getElementById('quickViewModal').classList.add('hidden');
+}
