@@ -5,11 +5,11 @@ function convertToJson(res) {
   if (res.ok) {
     return jsonResponse;
   } else {
-    throw { name: 'serviceError', message: jsonResponse };
+    throw { name: "serviceError", message: jsonResponse };
   }
 }
 
-export async function getProductsByCategory (category) {
+export async function getProductsByCategory(category) {
   const response = await fetch(baseURL + `products/search/${category}`);
   const data = await convertToJson(response);
   return data.Result;
@@ -21,25 +21,47 @@ export async function findProductById(id) {
   return data.Result;
 }
 
-export async function checkout(orderObj){
+export async function checkout(orderObj) {
   const options = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(orderObj)
-  }
+    body: JSON.stringify(orderObj),
+  };
 
-  return await fetch(baseURL + "checkout/", options).then(convertToJson)
+  return await fetch(baseURL + "checkout/", options).then(convertToJson);
 }
 
 export async function signup(userObj) {
   const options = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(userObj)
+    body: JSON.stringify(userObj),
   };
   return await fetch(baseURL + "users", options).then(convertToJson);
+}
+
+export async function loginRequest(creds) {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(creds),
+  };
+  return await fetch(baseURL + "login", options).then(convertToJson);
+}
+
+export async function getOrders(token) {
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return await fetch(baseURL + "orders", options).then(convertToJson);
 }
