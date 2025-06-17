@@ -4,11 +4,12 @@ import {
   setUpSort,
   searchProductList,
 } from "./productList.mjs";
-import { loadHeaderFooter, getParam } from "./utils.mjs";
+import { loadHeaderFooter, getParam, renderBreadcrumbs } from "./utils.mjs";
 
 loadHeaderFooter();
 const category = getParam("category");
 const search = getParam("search");
+renderBreadcrumbs(category, search);
 if (category) {
   productList(category, ".product-list");
   renderPageForCategory(category, "Top Products: ");
