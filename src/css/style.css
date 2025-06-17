@@ -438,6 +438,53 @@ footer {
   color: var(--dark-grey);
 }
 
+/* Image Carousel */
+#carousel-container {
+  position: relative;
+}
+
+.imgSlides {
+  display: none;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 10px;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.next {
+  right: 0;
+}
+
+.prev:hover, .next:hover {
+  background-color: var(--light-grey);
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+  width: 20%;
+}
+
+.img-thumb {
+  opacity: 0.6;
+}
+
+.active, .img-thumb:hover {
+  opacity: 1;
+}
+
 /* Breadcrumbs Styles */
 #breadcrumbs {
   font-family: Arial, sans-serif;

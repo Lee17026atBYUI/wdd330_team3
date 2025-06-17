@@ -19,14 +19,18 @@ function addToCart() {
 
     const cartIcon = document.querySelector(".cart");
     cartIcon.classList.add("animate");
-    cartIcon.addEventListener("animationend", () => {
-      cartIcon.classList.remove("animate");
-    }, { once: true });
+    cartIcon.addEventListener(
+      "animationend",
+      () => {
+        cartIcon.classList.remove("animate");
+      },
+      { once: true },
+    );
 
     const items = JSON.parse(localStorage.getItem("so-cart")) || [];
     const counterEl = document.getElementById("cartCounter");
     // counterEl.textContent = items.length > 0 ? items.length : "";
-    const productMessage = product.NameWithoutBrand + ' was added to the cart.'
+    const productMessage = product.NameWithoutBrand + " was added to the cart.";
     alertMessage(productMessage);
   }
 
@@ -64,11 +68,105 @@ function renderProductDetails(productData) {
   productName.textContent = productData.Brand.Name;
   productNameWithoutBrand.textContent = productData.NameWithoutBrand;
 
+  // Create image carousel
+  const imgContainer = document.getElementById("carousel-container");
+
+  // Get images
+  const images = [];
+
+  images.push(productData.Images.PrimaryLarge);
+
+  productData.Images.ExtraImages.forEach((image) => {
+    images.push(image.Src);
+  });
+
+  for (let i = 0; i < images.length; i++) {
+    const imgSlides = document.createElement("div");
+    imgSlides.classList.add("imgSlides");
+    const img = document.createElement("img");
+    img.src = images[i];
+    imgSlides.appendChild(img);
+    imgContainer.appendChild(imgSlides);
+  }
+
+  const imgRow = document.createElement("div");
+  imgRow.classList.add("row");
+
+  for (let i = 0; i < images.length; i++) {
+    const imgColumn = document.createElement("div");
+    imgColumn.classList.add("column");
+    const img = document.createElement("img");
+    img.classList.add("img-thumb");
+    img.src = images[i];
+
+    img.addEventListener("click", () => {
+      currentSlide(i + 1);
+    });
+
+    imgColumn.appendChild(img);
+    imgRow.appendChild(imgColumn);
+  }
+
+  imgContainer.appendChild(imgRow);
+
+  // Buttons
+  const prev = document.createElement("a");
+  prev.classList.add("prev");
+  prev.textContent = "⟪";
+  imgContainer.appendChild(prev);
+  prev.addEventListener("click", () => {
+    changeSlides(-1);
+  });
+  const next = document.createElement("a");
+  next.classList.add("next");
+  next.textContent = "⟫";
+  imgContainer.appendChild(next);
+  next.addEventListener("click", () => {
+    changeSlides(1);
+  });
+
+  // Handle slide changes
+  let slideIndex = 1;
+  showSlides(slideIndex);
+
+  function changeSlides(n) {
+    showSlides((slideIndex += n));
+  }
+
+  function currentSlide(n) {
+    showSlides((slideIndex = n));
+  }
+
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("imgSlides");
+    let thumbnail = document.getElementsByClassName("img-thumb");
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+      slideIndex = slides.length;
+    }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < thumbnail.length; i++) {
+      thumbnail[i].className = thumbnail[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    thumbnail[slideIndex - 1].className += " active";
+  }
+
   // Initialize to first color
   const firstColor = productData.Colors[0];
-  productImage.src = productData.Images.PrimaryExtraLarge || productData.Images.PrimaryLarge;
-  productImage.alt = "Image of " + productData.Name + " in " + firstColor.ColorName;
-  productFinalPrice.innerHTML = getDiscountPriceHtml(productData.SuggestedRetailPrice, productData.FinalPrice);
+  imgContainer.src =
+    productData.Images.PrimaryExtraLarge || productData.Images.PrimaryLarge;
+  imgContainer.alt =
+    "Image of " + productData.Name + " in " + firstColor.ColorName;
+  productFinalPrice.innerHTML = getDiscountPriceHtml(
+    productData.SuggestedRetailPrice,
+    productData.FinalPrice,
+  );
   productColorName.textContent = firstColor.ColorName;
   productDescriptionHtmlSimple.innerHTML = productData.DescriptionHtmlSimple;
   cartBtn.setAttribute("data-id", productData.Id);
@@ -77,7 +175,7 @@ function renderProductDetails(productData) {
   colorSwatchesContainer.innerHTML = "";
 
   // Create color swatches
-  productData.Colors.forEach(color => {
+  productData.Colors.forEach((color) => {
     const swatch = document.createElement("img");
     swatch.src = color.ColorChipImageSrc;
     swatch.alt = color.ColorName;
@@ -86,16 +184,21 @@ function renderProductDetails(productData) {
     swatch.style.width = "40px";
     swatch.style.height = "40px";
     swatch.style.marginRight = "8px";
-    swatch.style.border = (color.ColorCode === firstColor.ColorCode) ? "2px solid blue" : "1px solid #ccc";
+    swatch.style.border =
+      color.ColorCode === firstColor.ColorCode
+        ? "2px solid blue"
+        : "1px solid #ccc";
 
     swatch.addEventListener("click", () => {
       // Update main product image and color name when a swatch is clicked
-      productImage.src = color.ColorPreviewImageSrc || productData.Images.PrimaryLarge;
-      productImage.alt = "Image of " + productData.Name + " in " + color.ColorName;
+      productImage.src =
+        color.ColorPreviewImageSrc || productData.Images.PrimaryLarge;
+      productImage.alt =
+        "Image of " + productData.Name + " in " + color.ColorName;
       productColorName.textContent = color.ColorName;
 
       // Highlight selected swatch
-      Array.from(colorSwatchesContainer.children).forEach(child => {
+      Array.from(colorSwatchesContainer.children).forEach((child) => {
         child.style.border = "1px solid #ccc";
       });
       swatch.style.border = "2px solid blue";
@@ -110,7 +213,7 @@ function getDiscountPriceHtml(originalPrice, discountPrice) {
 
   let html = "";
   html += `<span class="original-price">$${originalPrice}</span>`;
-  html += ' $' + discountPrice;
+  html += " $" + discountPrice;
   html += ` <span class="discount-badge">${discountPercent}% OFF</span>`;
 
   return html;
