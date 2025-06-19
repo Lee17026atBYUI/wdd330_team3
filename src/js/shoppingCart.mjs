@@ -49,6 +49,25 @@ export function renderCartContents() {
       renderCartContents(); // re-render the updated cart
     });
   });
+    document.querySelectorAll(".wishlist-btn").forEach((button, index) => {
+    button.addEventListener("click", () => {
+      const itemToMove = cartItems[index];
+
+      // Get current wishlist items or empty array
+      const wishlist = JSON.parse(localStorage.getItem("so-wishlist")) || [];
+
+      // Add to wishlist
+      wishlist.push(itemToMove);
+      localStorage.setItem("so-wishlist", JSON.stringify(wishlist));
+
+      // Remove from cart
+      const updatedCart = cartItems.filter((_, i) => i !== index);
+      localStorage.setItem("so-cart", JSON.stringify(updatedCart));
+
+      // Re-render the cart
+      renderCartContents();
+    });
+  });
 }
 
 export function cartItemTemplate(item, quantity) {
@@ -66,6 +85,7 @@ export function cartItemTemplate(item, quantity) {
   <p class="cart-card__quantity">qty: ${quantity}</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <button class="delete-btn" aria-label="Remove item">&times;</button>
+  <button class="wishlist-btn" aria-label="Add to wishlist">Add To Wishlist</button>
 </li>`;
   return newItem;
 }
