@@ -46,6 +46,9 @@ export function renderCartContents() {
       // Remove the item at this index
       const updatedCart = cartItems.filter((_, i) => i !== index);
       localStorage.setItem("so-cart", JSON.stringify(updatedCart));
+      const items = JSON.parse(localStorage.getItem("so-cart")) || [];
+      const counterEl = document.querySelector(".cart-counter");
+      counterEl.textContent = items.length > 0 ? items.length : "0";
       renderCartContents(); // re-render the updated cart
     });
   });

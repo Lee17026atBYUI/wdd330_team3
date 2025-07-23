@@ -1,11 +1,20 @@
 import { setLocalStorage, alertMessage } from "./utils.mjs";
-import { findProductById } from "./externalServices.mjs";
+import { findProductById, getProductsByCategoryRandom} from "./externalServices.mjs";
 import { attachQuickViewListeners } from "./productList.mjs";
 
 export default async function productDetails(productId) {
   addToCart();
   const productData = await findProductById(productId);
-  renderProductDetails(productData);
+
+  const allCategories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
+  const filteredCategories = allCategories.filter(cat => cat !== productData.Category);
+  const randomItems = [];
+  for (const category of filteredCategories) {
+    const object = await getProductsByCategoryRandom(category);
+    randomItems.push(object);
+  }
+  console.log(randomItems);
+  renderProductDetails(productData, randomItems);
   return productData;
 }
 
@@ -29,8 +38,8 @@ function addToCart() {
     );
 
     const items = JSON.parse(localStorage.getItem("so-cart")) || [];
-    const counterEl = document.getElementById("cartCounter");
-    // counterEl.textContent = items.length > 0 ? items.length : "";
+    const counterEl = document.querySelector(".cart-counter");
+    counterEl.textContent = items.length > 0 ? items.length : "";
     const productMessage = product.NameWithoutBrand + " was added to the cart.";
     alertMessage(productMessage);
   }
@@ -40,7 +49,7 @@ function addToCart() {
     .addEventListener("click", addToCartHandler);
 }
 
-export function renderProductDetails(productData) {
+export function renderProductDetails(productData, randomItems) {
 	if (productData === undefined) {
 		document.getElementsByClassName("product-detail")[0].style.display = "none";
 
@@ -208,6 +217,51 @@ export function renderProductDetails(productData) {
 
     colorSwatchesContainer.appendChild(swatch);
   });
+
+  // Add suggestion section
+  if (randomItems && randomItems.length > 0) {
+    const suggestionSection = document.createElement("section");
+    suggestionSection.classList.add("suggestion-section");
+
+    const title = document.createElement("h3");
+    title.textContent = "You Might Also Like";
+    suggestionSection.appendChild(title);
+
+    const suggestionContainer = document.createElement("div");
+    suggestionContainer.classList.add("suggestion-container");
+
+    randomItems.forEach((item) => {
+      console.log(item)
+      const card = document.createElement("div");
+      card.classList.add("suggestion-card");
+
+      const img = document.createElement("img");
+      img.src = item.Images.PrimaryMedium;
+      img.alt = `Image of ${item.Name}`;
+      img.classList.add("suggestion-image");
+
+      const name = document.createElement("p");
+      name.classList.add("suggestion-name");
+      name.textContent = `${item.Brand.Name} ${item.NameWithoutBrand}`;
+
+      const price = document.createElement("p");
+      price.classList.add("suggestion-price");
+      price.innerHTML = getDiscountPriceHtml(item.SuggestedRetailPrice, item.FinalPrice);
+
+      const link = document.createElement("a");
+      link.href = `../product_pages/index.html?product=${item.Id}`;
+      link.appendChild(img);
+      link.appendChild(name);
+      link.appendChild(price);
+
+      card.appendChild(link);
+      suggestionContainer.appendChild(card);
+    });
+
+    suggestionSection.appendChild(suggestionContainer);
+    document.querySelector("main").appendChild(suggestionSection);
+  }
+
 }
 
 function getDiscountPriceHtml(originalPrice, discountPrice) {

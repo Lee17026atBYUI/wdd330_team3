@@ -376,12 +376,11 @@ footer {
   margin: 10px auto;
 }
 
-
 .modal {
   position: fixed;
-  top: 0; 
+  top: 0;
   left: 0;
-  width: 100%; 
+  width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
@@ -394,12 +393,12 @@ footer {
   background: white;
   padding: 1.5rem;
   border-radius: 10px;
-  width: 400px; /* smaller width */
+  max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
   text-align: left;
   position: relative;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 #quickViewModal .modal-content img {
@@ -433,16 +432,16 @@ footer {
   display: none;
 }
 
-
 /*New User Email Gathering Modal*/
 .new-user-modal {
   display: none;
   position: fixed;
   z-index: 10;
-  left: 0; top: 0;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .new-user-modal-content {
   background-color: white;
@@ -453,7 +452,7 @@ footer {
   text-align: center;
 }
 
-.new-user-modal-content input{
+.new-user-modal-content input {
   width: 90%;
   padding: 10px;
   font-size: 1rem;
@@ -482,7 +481,6 @@ footer {
   font-size: 1.5rem;
   cursor: pointer;
 }
-
 
 /* newsletter */
 .newsletter-section {
@@ -554,7 +552,8 @@ footer {
   display: none;
 }
 
-.prev, .next {
+.prev,
+.next {
   position: absolute;
   top: 40%;
   width: auto;
@@ -569,7 +568,8 @@ footer {
   right: 0;
 }
 
-.prev:hover, .next:hover {
+.prev:hover,
+.next:hover {
   background-color: var(--light-grey);
 }
 
@@ -588,7 +588,8 @@ footer {
   opacity: 0.6;
 }
 
-.active, .img-thumb:hover {
+.active,
+.img-thumb:hover {
   opacity: 1;
 }
 
@@ -623,7 +624,8 @@ footer {
   cursor: default;
 }
 
-#breadcrumbs a, #breadcrumbs span {
+#breadcrumbs a,
+#breadcrumbs span {
   white-space: nowrap;
 }
 
@@ -639,3 +641,51 @@ footer {
   background-color: var(--dark-grey);
 }
 
+/* suggestions style */
+.suggestion-section {
+  margin-top: 40px;
+  padding: 20px;
+  border-top: 2px solid #eee;
+}
+
+.suggestion-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.suggestion-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.suggestion-card {
+  width: calc(33% - 20px);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.suggestion-card:hover {
+  transform: scale(1.02);
+}
+
+.suggestion-image {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.suggestion-name {
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.suggestion-price {
+  color: #2c3e50;
+}
+/* suggestions style end */

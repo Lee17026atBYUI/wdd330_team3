@@ -54,6 +54,34 @@ export async function renderWithTemplate(
   }
   const htmlString = await templateFn();
   parentElement.insertAdjacentHTML(position, htmlString);
+  if(parentElement == document.querySelector('header')){
+    // Once header is in the DOM, safely add the cart counter
+    const cartItems = getLocalStorage("so-cart") || [];
+    const cartCounter = document.createElement('div');
+    cartCounter.textContent = cartItems.length;
+    cartCounter.classList.add('cart-counter');
+
+    // Add some optional styles
+    cartCounter.style.position = 'absolute';
+    cartCounter.style.top = '2';
+    cartCounter.style.right = '1';
+    cartCounter.style.background = 'red';
+    cartCounter.style.color = 'white';
+    cartCounter.style.fontSize = '10px';
+    cartCounter.style.width = '15px';
+    cartCounter.style.height = '15px';
+    cartCounter.style.borderRadius = '50%';
+    cartCounter.style.display = 'flex';
+    cartCounter.style.alignItems = 'center';
+    cartCounter.style.justifyContent = 'center';
+
+    // Find the cart icon and insert the badge
+    const svgIcon = parentElement.querySelector(".cart");
+    if (svgIcon) {
+      svgIcon.style.position = 'relative';
+      svgIcon.appendChild(cartCounter);
+    }
+  }
 
   if (callback) {
 	callback(data);

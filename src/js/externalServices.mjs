@@ -15,6 +15,13 @@ export async function getProductsByCategory(category) {
   return data.Result;
 }
 
+export async function getProductsByCategoryRandom(category) {
+  const response = await fetch(baseURL + `products/search/${category}`);
+  const data = await convertToJson(response);
+  const index = Math.floor(Math.random() * data.Result.length);
+  return data.Result[index];
+}
+
 export async function findProductById(id) {
   const response = await fetch(baseURL + `product/${id}`);
   const data = await convertToJson(response);
